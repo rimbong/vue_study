@@ -1,0 +1,38 @@
+vue는 index.html을 한 페이지로 잡고 작동 , 실제 반영은 mobile.jsp(dev.nanum.com.kr:80)를 한 페이지로 잡고 작동한다.
+따라서 개발시에는 index.html(localhost:8080)을 이용해서 개발은 한다.
+
+html 태그 < = > vue의 model(data) 접근시
+*양방향 바인딩) v-model = "data"  
+v-bind:value = "data" or :value = "data"
+
+바인된 model 을 사용할 시
+{{ data }}  ,{{  data()  }}
+
+특정 이벤트 명시 및 동작할 함수
+v-on:Event="data" or  @Event = 'data(arg)'
+v-on:submit="data"         => 페이지 새로고침이 일어남 (defaultprevent)
+v-on:submit.prevent="data" => 페이지 새로고침이 일어나지 않음
+
+component 등록 및 사용
+import 하여 component(vue file)을 사용하거나 App.vue - vue.component('사용할 컴포넌트 명',등록할 컴포넌트) 으로 전역 등록을 한다.
+
+watch
+해당 model 값의 변화가 있을 때 반응한다. model의 이름과 같은 함수를 선언한다.
+data(newVal , oldVal) {} 
+
+computed
+function()을 선언하여 model의 변화에 따른 설정해야 할 함수를 지정해준다. ( method에 비해 캐싱을 사용하므로 리소스를 줄일 수 있다.)
+
+class 및 style 동적 설정
+<div :class = {red : "isRed"} :style"{ color: red ,fontSize : size}" >
+isRed의 true/false에 따라 동적으로 class를 설정해 줄 수 있다.
+red : 'red' , size: '30px' 와 같이 설정한다.
+
+v-if , v-show 
+true or false 에 따라 해당 영역의 htlm 태그를 보이거나 보이지 않게 해준다.
+v-show는 display :none의 형태이기 때문에 반복적인 렌더링에 의한 리소스를 줄여야한다면 show를 사용한다.
+
+v-for
+<div v-for="(data,index) in dataList"  key= ''data.uniqueId">
+{{data}}
+</div>

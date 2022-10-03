@@ -1,0 +1,17 @@
+vuex
+접근 방법
+vuex(store)   < -----   ~~~.vue  <-------- main.js
+*.vue 파일에서 $store 객체를 참조하여 vuex에 접근한다.
+main.js에서 해당 vuex 파일을 import시키며 이후 new Vue({})에 해당 vuex를 등록한다 ( 이때 등록된 객체는 $~~~  형태로 접근,vuex역시 마찬가지)
+
+Vuex 내부에 정의되는 객체
+state     => component의 data 역할
+getters	  => component의 computed 역할
+mutations => commit으로 접근
+actions	  => dispathch로 접근
+
+Vue 내부에 정의되는 객체
+...mapGetter	=> getters의 값들을 접근할 때 사용
+...mapState	    => state 값들을 접근할 때 사용
+
+URL -> 라우터 -> VUE -> VUEX ( action : 서비스 로직 수행,axios , mutation : state값 설정 )

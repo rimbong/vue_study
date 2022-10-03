@@ -1,0 +1,11 @@
+Event Bus
+어떤 이벤트를 bus를 이용해 사용하는 것
+=> 부모 - 자식 간이 아니더라도 사용가능하다
+
+event bus 역할을 할 new Vue를 생성한다.
+이후 이 bus를 이용하는 곳에서 import 하여 사용한다.
+보내는 곳 : bus.$emit('eventName',argument)
+받는   곳 : bus.$on('eventName',(argument)=>{})
+
+형태
+App.Vue   <----------->   EventBus.vue
