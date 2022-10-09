@@ -8,10 +8,10 @@ name	   -> 지정한 name에 접근방식
 component  -> 이동 및 보여질 vue file 등록
 
 component 에 vuefile 등록 방식
-1. 해당 라우터에 연결된 모든 import 파일을 가져오는 방식
- component : Home 
-2. 필요시에 동적import하여 가져오는 방식
- component : () => import (...........................)
+    1. 해당 라우터에 연결된 모든 import 파일을 가져오는 방식
+     component : Home 
+    2. 필요시에 동적import하여 가져오는 방식
+     component : () => import (...........................)
 
 라우터 사용방법
 1. <~~~  @click="$router.push("{name : ~~~}")"> or .push("/~~~~") 

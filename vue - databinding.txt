@@ -1,6 +1,3 @@
-vue는 index.html을 한 페이지로 잡고 작동 , 실제 반영은 mobile.jsp(dev.nanum.com.kr:80)를 한 페이지로 잡고 작동한다.
-따라서 개발시에는 index.html(localhost:8080)을 이용해서 개발은 한다.
-
 html 태그 < = > vue의 model(data) 접근시
 *양방향 바인딩) v-model = "data"  
 v-bind:value = "data" or :value = "data"

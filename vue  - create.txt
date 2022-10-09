@@ -1,0 +1,30 @@
+0. 경로 => /워크스페이스/프로젝트 , 프로젝트 경로에서 수행한다.
+
+1. npm 설치 후 확인
+    npm install -g @vue/cli
+
+2. vue 프로젝트 생성
+    vue create 프로젝트명
+    manually 선택 => ROUTER, VUEX 추가 선택
+
+3. version 2.x 선택
+    History 여부 => yes
+    linter / formatter config => enter
+    pick additional linit features => Lint on save
+    Where do you prefer placing... => In package.json
+
+package.json 중요 몇개
+    name            => vue 패키지 명
+    script          => npm run ---- 에 대한 명령어 정의
+    dependencies    => node_modules에서 운영환경에서 사용할 모듈들만 정의 ( 정의된 모듈들만 가져온다. )
+    devDencies      => 각각의 모듈들을 구성하는 개발되어진 모듈들
+
+main.js
+    가장 먼저 실행되는 js이며 여기서 vue를 초기화 한다.
+    이후 index.html에서 정의된 #app (id값) 에 mount 한다.
+App.vue
+    실질적으로 보여지는 화면이며 index.html에 id='app'인 곳에 mount 되어진다.
+    
+
+
+vue는 index.html을 한 페이지로 잡고 작동 따라서 개발시에는 index.html(localhost:8080)을 이용해서 개발을 한다.
