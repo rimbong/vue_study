@@ -12,25 +12,28 @@
     linter / formatter config => enter
     pick additional linit features => Lint on save
     Where do you prefer placing... => In package.json
-
+---------------------------------------------------------------------------
+부트 스트랩 설치 및 제거
+    npm install vue bootstrap bootstrap-vue
+    npm uninstall vue bootstrap bootstrap-vue
+---------------------------------------------------------------------------
 package.json 중요 몇개
     name            => vue 패키지 명
     script          => npm run ---- 에 대한 명령어 정의
     dependencies    => node_modules에서 운영환경에서 사용할 모듈들만 정의 ( 정의된 모듈들만 가져온다. )
     devDencies      => 각각의 모듈들을 구성하는 개발되어진 모듈들
-
+---------------------------------------------------------------------------
 main.js
     가장 먼저 실행되는 js이며 여기서 vue를 초기화 한다.
     이후 index.html에서 정의된 #app (id값) 에 mount 한다.
-
+---------------------------------------------------------------------------
 App.vue
     실질적으로 보여지는 화면이며 index.html에 id='app'인 곳에 mount 되어진다.
-
+---------------------------------------------------------------------------
 vue.config.js    
     outputDir :'../webapp/web/vue'  =>  build의 결과물이 저장되는곳
     publicPath : "/web/vue"         => index.html에 포함할 js파일들의 경로 (src 프로퍼티에 대한 값)
-
+---------------------------------------------------------------------------
 vue는 index.html을 한 페이지로 잡고 작동 따라서 개발시에는 index.html(localhost:8080)을 이용해서 개발을 한다.
-
 진행 순서는
 URL -> 라우터 -> VUE -> VUEX ( action : 서비스 로직 수행,axios , mutation : state값 설정 )
