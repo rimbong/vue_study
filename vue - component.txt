@@ -1,5 +1,6 @@
 1. 부모 -> 자식
-부모  <~~  :K="V" > 부모의 V값을 K에 넣어서 보낸다.
+부모 :K="V" -> 변수_K  = 부모_Value
+
 자식  
  props : ["K"] K로 받는다. 
 or props : {K : Object} 데이터 타입의 유형을 설정
@@ -11,5 +12,94 @@ or props : {K : {type : ~~~ , default : ~~~}} 타입과 데이터가 없을시 d
  이후 받는 쪽에서 @EventName = function(argument) 발생시킬 함수 
 
 이런 방식은 부모 - 자식과 같은 경우로 제한되어 EventBus를 이용한다.
+------------------------------------------------------------------------------------------------------------
+예) 부모 (게시판 리스트)  <----->    자식(page 영역)
+부모
+import Pager from '../../../common/Pager';
+<pager v-if="boardList != null" @pageMove="changePage" :total-count="totalCount" :display-number="5"  :currentValue="page" ></pager>
+method :{
+    //게시물 페이지 전환
+    changePage : function(pageNum){ 
+        // 게시판명에 & 기호 포함될 경우 잘리는 오류 수정
+        var boardName = `${this.pageText}`;
+        boardName = boardName.replace("&", "%26");
+        
+        const url = `/brd/list?boardId=${this.boardId}&page=${pageNum}&boardName=` + boardName; 
+        this.$router.push({path:url});
+    },
+    ...
+}=> Value명에 해당하는 부모 method
+------------------------------------------------------------------------------------------------------------
+자식
+<template>
+    <div class='pager-wrapper'>
+        <b-button variant="primary" @click="firstPageGo"><i class="fas fa-backward"></i></b-button>
+        <b-button variant="primary" @click="previousPageGo"><i class="fas fa-caret-left"></i></b-button>
+        <div v-for="i in displayNumbers" :key="i" @click="pageClick(i)" class="pager-container">
+            <div v-if="i==currentPage" class="pager pager-selected">{{i}}</div>
+            <div v-else class="pager">{{i}}</div>
+        </div>
+        <b-button variant="primary" @click="nextPageGo"><i class="fas fa-caret-right"></i></b-button>
+        <b-button variant="primary" @click="lastPageGo"><i class="fas fa-forward"></i></b-button>
+    </div>
+</template>
+ props:{
+         //현재 페이지 번호
+         currentValue :{
+             type : Number,
+             default : 1,
+         },
+        // 문서 총 개수
+        totalCount :{
+            type : Number,
+            default : 0,
+        },
+        // 보여질 네비게이션 숫자 ex) 3 > 3개씩 보여준다. // 5 > 5개씩 보여준다
+        displayNumber : {
+            type : Number,
+            default : 3,
+        },
+        // 한페이지에 나타날 문서 개수
+        displayDocNumber :{
+            type : Number,
+            default : 10,
+        }
+
+} => props 로 value를 받아준다.
+data(){
+    return{
+        // 총 페이지에서 몇번째 번호들이 보여지는지 ex) displayNumber=3,  1 > [1,2,3] ,  2 > [4,5,6] 
+        currentDisplayPage : 1,
+        // 현재 페이지
+        currentPage :1,
+        
+    }
+},=> 사용할 변수명 정의
+created (){
+        this.currentPage = this.currentValue;
+        this.currentDisplayPage =Math.ceil(this.currentPage/this.displayNumber);
+} => 부모의값을 직접 변경하는것이 아닌 따로 변수에 대입하여 사용.
+methods :{
+    pageClick(i){
+        this.currentPage = i;
+        this.$emit("pageMove",this.currentPage);
+    },
+    nextPageGo(){
+        if(this.currentPage >=+ this.lastPage ){return;}
+            
+        this.currentPage++;
+        this.$emit("pageMove",this.currentPage);
+
+        if(this.currentPage%this.displayNumber===1){
+            if(this.currentDisplayPage<this.lastDisplayPage)
+                ++this.currentDisplayPage;
+        }
+    },   
+    ...
+} => page에 대한 값의 변화가 있을때 pageMove이벤트를 발생시켜 부모의 method를 호출한다.
+------------------------------------------------------------------------------------------------------------
+
+
+
 
 

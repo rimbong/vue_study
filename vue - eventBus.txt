@@ -1,6 +1,6 @@
 Event Bus
 어떤 이벤트를 bus를 이용해 사용하는 것
-=> 부모 - 자식 간이 아니더라도 사용가능하다
+=> 부모 - 자식 간이 아니더라도 사용가능하다 , 보통 전역적으로 사용할 컴포넌트에 대한 이벤트를 사용할 떄 사용
 
 event bus 역할을 할 new Vue를 생성한다.
 이후 이 bus를 이용하는 곳에서 import 하여 사용한다.
@@ -9,3 +9,60 @@ event bus 역할을 할 new Vue를 생성한다.
 
 형태
 App.Vue   <----------->   EventBus.vue
+------------------------------------------------------------------------------------------------------------
+예) spinner (로딩중,검색중 등의 기능) 기능 구현
+bus.js
+import Vue from 'vue';
+export default new Vue();
+=> bus 이벤트 생성
+------------------------------------------------------------------------------------------------------------
+App.vue
+<template>
+ <div id="app" >
+    ...
+    <spinner :loading="loadingStatus"></spinner> 
+  </div>  
+</template>
+import bus from './bus/bus';
+created(){
+	// 로딩창 이벤트 등록
+	bus.$on("start:spinner",()=>this.startSpinner());
+	bus.$on("end:spinner",()=>this.endSpinner());
+}, => bus 이벤트 등록 
+method:{
+	startSpinner(){
+	  this.loadingStatus = true;
+	},
+	endSpinner(){
+	  this.loadingStatus = false;
+	},
+} => bus 이벤트에 대응하는 method 등록
+------------------------------------------------------------------------------------------------------------
+Main.vue
+import bus from '../../bus/bus';
+created : function(){
+	bus.$emit("end:spinner");	
+}, => 해당 뷰가 생성이 완료(created)되었을때 spinner를 사라지게끔 이벤트 호출
+------------------------------------------------------------------------------------------------------------
+Spinner.vue
+<template>
+    <div class="lds-facebook" v-if="loading">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</template>
+<script>
+export default {
+    props:{
+        loading :{
+            type : Boolean,
+            required: true,
+        }
+    }
+}=> spinner 템플릿
+------------------------------------------------------------------------------------------------------------
+
+
+
+
