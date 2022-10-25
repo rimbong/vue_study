@@ -21,3 +21,56 @@ VUEX
 Vue ========> Actions ========> Mutations ========> State 
  |====================================================|
 ------------------------------------------------------------------------------------------------------------
+module 충동 방지를 위한 namespace 정의 - vuex(store)를 정의 해주는 부분에 프로퍼티값을 추가한다.
+vuex - xxx.js 
+export default {
+    namespaced: true,
+    state: {}
+    ...
+ }
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+예) $router를 이용해 push 또는 replace 처리
+change.vue
+this.$router.replace({path:"/board/list?type=all&page=1"});
+
+boardList.vue
+watch : {
+    // 라우터 URL 변경시 해당 메소드 실행
+    '$route': 'getBoardList'
+} => 뷰에서 라우터 객체 접근 등은 $route 사용 !
+getBoardList(){
+    this.$store.dispatch('board/list',this.$route);
+}, => vuex action 호출 ,$route 객체를 넘긴다.
+
+vuex - board.js
+actions: {
+    list(context,router){
+        const params = {};
+        params.type = router.query.type;
+        params.page = router.query.page;    
+        Service.list(params)
+        .then(res => {
+            context.commit("setParams",params);        
+            context.commit("lsit",res);        
+        });
+    }
+}=> service 로직 수행후 mutation 수행
+mutations: {
+    list(state,res){
+        state.list = res.data.list;
+        state.totalCnt = res.data.total_size;
+        state.unread = res.data.unread;
+    },
+    setParams(state,payload){
+        state.page = payload.page;
+        state.type = payload.type;
+}=> state 값 세팅
+
+vue에서 state 값 접근
+computed: {
+    type(){
+        return this.$store.state.board.type;
+    },
+} => 또는 vuex에서 getters에 선언하고 vue에서 mapgetters를 이용하여 가져올수도 있다.
