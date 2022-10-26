@@ -52,7 +52,7 @@ import customAxios from './index.js';
 export default {
 
     insertXXX(path){
-        return customAxios.get(`/api/logging/access?path=${path}`);
+        return customAxios.get(`...`);
     },
 }
 ------------------------------------------------------------------------------------------------------------
