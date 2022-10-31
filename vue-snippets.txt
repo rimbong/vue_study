@@ -3,7 +3,7 @@ ctrl+shift+p => snippets 검색 => vue.json 선택
 	"Generate Basic Vue Code":{
 		"prefix":"vue-start",
 		"body": [
-			"<template>\n\t<main>\n\n\t</main>\n</template>\n<script>\nexport default {\n\tname: '',\n\tcomponents: {},\n\tdata() {\n\t\treturn {\n\t\t\texample: '',\n\t}\n},\n\tbeforeCreate() {},\n\tcreated() {},\n\tbeforeMount() {},\n\tmounted() {},\n\tbeforeUpdate() {},\n\tupdated() {},\n\tbeforeUnmount() {},\n\tunmounted() {},\n\tmethods: {},\n\tsetup(){}\n}\n</script>"
+			"<template>\n\t<div>\n\n\t</div>\n</template>\n<script>\nexport default {\n\tname: '',\n\tcomponents: {},\n\tdata() {\n\t\treturn {\n\t\t\texample: '',\n\t\t}\n\t},\n\tbeforeCreate() {},\n\tcreated() {},\n\tbeforeMount() {},\n\tmounted() {},\n\tbeforeUpdate() {},\n\tupdated() {},\n\tbeforeUnmount() {},\n\tunmounted() {},\n\tmethods: {},\n\tsetup(){}\n}\n</script>"
 		],
 		"description": "Generate Basic Vue Code"
 	}
