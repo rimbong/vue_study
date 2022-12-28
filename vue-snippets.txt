@@ -11,8 +11,8 @@ ctrl+shift+p => snippets 검색 => vue.json 선택
 		"description": "Generate Basic Vue Code"
 	}
 ctrl+shift+p => snippets 검색 => java.json 선택	
-    "comment": {
-        "prefix": "methodComment",
+    "ControllerComment": {
+        "prefix": "ControllerComment",
         "body": [
             "/**",
             " * <pre>",
@@ -24,4 +24,33 @@ ctrl+shift+p => snippets 검색 => java.json 선택
             " */"
         ],
         "description": "comment"
-    }
+    },
+	"ServiceComment": {
+        "prefix": "ServiceComment",
+        "body": [
+            "/**",
+            " * <pre>",
+            " *   ${TM_FILENAME_BASE} Service",
+            " * </pre>",
+            " * @author In-seong Hwang",
+            " * @since ${CURRENT_YEAR}.${CURRENT_MONTH}.${CURRENT_DATE}",
+            " * @version 1.0",
+            " */"
+        ],
+        "description": "comment"
+    },
+    "default comment": {		
+		"prefix": "comment",
+		"body": [
+            "/**",
+            " * <pre>",
+            " *   ${TM_FILENAME_BASE} ",
+            " * </pre>",
+            " * @author In-seong Hwang",
+            " * @since ${CURRENT_YEAR}.${CURRENT_MONTH}.${CURRENT_DATE}",
+            " * @version 1.0",
+            " */"			
+		],
+		"description": "comment"
+	}
+
