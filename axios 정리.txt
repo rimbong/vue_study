@@ -1,0 +1,27 @@
+axios 정리
+
+post
+
+const formDataPost = (url, params) => {
+    const config = {
+        "headers" : {
+            "Accept": 'application/json', 
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }    
+    }
+    const urlParams = new URLSearchParams();
+
+    for (const key in params) {
+        if (Object.hasOwnProperty.call(params, key)) {
+            urlParams.append(key,params[key]);
+        }
+    }
+    return  axios.post(url,urlParams,config);
+}
+
+axios의 post 사용시 객체를 그냥 보내면 서버에서 제대로 받질 못한다.
+따라서 URLSearchParams을 사용하여 객체의 prop값을 전부 담아 보내줘야 한다.
+------------------------------------------------------------------------------------------------
+
+get
+------------------------------------------------------------------------------------------------

@@ -29,6 +29,16 @@ export default {
     ...
  }
 ------------------------------------------------------------------------------------------------------------
+axios 설치
+npm install --save axios
+
+axios 전역설정
+imports axios from 'axios'
+Vue.prototype.$http = axios
+
+axios 사용
+this.$http.get()
+this.$http.post()
 ------------------------------------------------------------------------------------------------------------
 
 예) $router를 이용해 push 또는 replace 처리

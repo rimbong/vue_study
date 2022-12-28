@@ -1,9 +1,27 @@
+https://snippet-generator.app/?description=&tabtrigger=&snippet=&mode=vscode
+https://code.visualstudio.com/docs/editor/userdefinedsnippets
+
 ctrl+shift+p => snippets 검색 => vue.json 선택	
 
 	"Generate Basic Vue Code":{
 		"prefix":"vue-start",
 		"body": [
-			"<template>\n\t<div>\n\n\t</div>\n</template>\n<script>\nexport default {\n\tname: '',\n\tcomponents: {},\n\tdata() {\n\t\treturn {\n\t\t\texample: '',\n\t\t}\n\t},\n\tbeforeCreate() {},\n\tcreated() {},\n\tbeforeMount() {},\n\tmounted() {},\n\tbeforeUpdate() {},\n\tupdated() {},\n\tbeforeUnmount() {},\n\tunmounted() {},\n\tmethods: {},\n\tsetup(){}\n}\n</script>"
+			"<template>\n\t<main>\n\n\t</main>\n</template>\n<script>\nexport default {\n\tname: '',\n\tcomponents: {},\n\tdata() {\n\t\treturn {\n\t\t\texample: '',\n\t}\n},\n\tmethods: {},\n\tcomputed: {},\n\twatch: {},\n\tbeforeCreate() {},\n\tcreated() {},\n\tbeforeMount() {},\n\tmounted() {},\n\tbeforeUpdate() {},\n\tupdated() {},\n\tbeforeUnmount() {},\n\tunmounted() {}\n}\n</script>"
 		],
 		"description": "Generate Basic Vue Code"
 	}
+ctrl+shift+p => snippets 검색 => java.json 선택	
+    "comment": {
+        "prefix": "methodComment",
+        "body": [
+            "/**",
+            " * <pre>",
+            " *   ${TM_FILENAME_BASE} Controller",
+            " * </pre>",
+            " * @author In-seong Hwang",
+            " * @since ${CURRENT_YEAR}.${CURRENT_MONTH}.${CURRENT_DATE}",
+            " * @version 1.0",
+            " */"
+        ],
+        "description": "comment"
+    }
