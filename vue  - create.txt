@@ -3,6 +3,8 @@
 1. npm 설치 후 확인
     npm install -g @vue/cli
 
+    삭제는 npm uninstall vue-cil -g
+    node_modules가 없을 경우 npm i
 2. vue 프로젝트 생성
     vue create 프로젝트명
     manually 선택 => ROUTER, VUEX 추가 선택
