@@ -29,7 +29,7 @@ method :{
     },
     ...
 }=> Value명에 해당하는 부모 method
-------------------------------------------------------------------------------------------------------------
+
 자식
 <template>
     <div class='pager-wrapper'>
@@ -97,6 +97,33 @@ methods :{
     },   
     ...
 } => page에 대한 값의 변화가 있을때 pageMove이벤트를 발생시켜 부모의 method를 호출한다.
+------------------------------------------------------------------------------------------------------------
+Slot
+부모 자식간 컴포넌트를 사용할 때 유동적인 엘리먼트를 만들 때 사용한다. 이를 이용해서 재사용성을 증가 시킬수 있다.
+
+부모
+<mail-subtitle :path="this.$store.state.value">
+    <span slot="pageText"><a @click="event">{{pageText}}</a></span>
+    <span slot="totalCnt">( {{totalCnt}} )</span>
+</mail-subtitle>
+
+자식
+<template>
+    <div class="subtitle-container">
+        <div style="line-height:40px;">
+            <slot name="pageText">
+            </slot>
+            <slot name="totalCnt">
+            </slot>
+        </div>
+        <div>
+            ...
+        </div>
+    </div>
+</template>
+
+자식 컴포넌트 mail-subtitle을 사용하며 이때 자식의 slot 중 각 name에 매핑되어 사용되어진다.
+------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 
 
