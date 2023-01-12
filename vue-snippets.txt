@@ -12,6 +12,15 @@ ctrl+shift+p => snippets 검색
     "description": "Generate Basic Vue Code"
 }
 ------------------------------------------------------------------------------------------------
+javascript.json
+"Generate Basic Vuex Code":{
+    "prefix":"vuex-start",
+    "body": [
+        "export default {  \n\t namespaced: true,\n\t state: { },\n\t getters: { },\n\t mutations: { },\n\t actions: { },\n\t modules: { }\n }"
+    ],
+    "description": "Generate Basic Vue Code"
+},
+------------------------------------------------------------------------------------------------
 java.json  
 "ControllerComment": {
     "prefix": "ControllerComment",
