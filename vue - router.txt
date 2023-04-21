@@ -58,6 +58,14 @@ argument 전달
 1. path  "/url/:id" 이후 vue페이지에서 this.$route.params 로 접근
  주소 뒤에 params  값을 추가하여 보낸다.
 2. router :to ="{params : {} , name : ''}"
+3. 객체를 보내야 할때
+this.$router.push({ name: "ComponentName" ,params : { p : 'a'} });
+여기서 주의할 점은 path가 아닌 name으로 보내야 한다는 점이다.
+이후 $route.params로 받는다.
+4. 쿼리스트링 형태로 보낼때
+this.$router.push({ path: "ComponentPath" ,query : { p : 'a'} });
+여기서 주의할 점은 name이 아닌 path으로 보내야 한다는 점이다.
+이후 $route.query로 받는다.
 ------------------------------------------------------------------------------------------------------------
 queryString 
 URL ? arg1 = ~~~&arg2 = ~~~ 이후 vue페이지에서 this.$route.query 로 접근

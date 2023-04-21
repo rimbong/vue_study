@@ -41,6 +41,10 @@ class 및 style 동적 설정
 <div :class = "{red : isRed}" :style"{ color: red ,fontSize : size}" >
 isRed의 true/false에 따라 동적으로 class를 설정해 줄 수 있다.
 red : 'red' , size: '30px' 와 같이 설정한다.
+
+:class="[{on : alert},color]"
+alert는 true/false 여부에 따라 생기며, color는 color에 대입한 값이 class명으로 들어간다.
+
 ------------------------------------------------------------------------------------------------------------
 v-if , v-show 
 true or false 에 따라 해당 영역의 htlm 태그를 보이거나 보이지 않게 해준다.
