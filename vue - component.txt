@@ -1,5 +1,6 @@
 1. 부모 -> 자식
-부모 :K="V" -> 변수_K  = 부모_Value
+부모 :K="V" 
+ K => props로 받을 변수명  V => 넘길 값
 
 자식  
  props : ["K"] K로 받는다. 
@@ -123,6 +124,46 @@ Slot
 </template>
 
 부모는 자식 컴포넌트 mail-subtitle을 사용하며 부모에서 선언한 slot들이 자식의 slot에 각각 name에 매핑되어 사용되어진다.
+------------------------------------------------------------------------------------------------------------
+slot-scope를 이용한 데이터 넘기기
+하위 컴포넌트 
+<template>
+  <div>  
+    <slot name= "forFirst" :fromHeader="title"></slot>
+    <p> first</p>      
+    <slot name= "forSecond"></slot>
+    <p> second </p>
+    <slot></slot>
+    <p> third </p>      
+  <br>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      title : 'Vue.js study~'
+    }
+  },
+
+상위 컴포넌트
+<template>
+  <div>
+    <h1>About page</h1>
+    <Header>      
+      <template v-slot:forFirst="props">
+        <p>Here is the first {{props.fromHeader}} </p>
+      </template>
+      <template #forSecond>
+        <p>Here is the second</p>
+      </template>
+      <template >
+        <p>Here is the third</p>
+      </template>
+    </Header>
+  </div>
+</template>
+{{props.fromHeader}} 여기에는 Vue.js study~ 가 매칭된다.
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 
