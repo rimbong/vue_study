@@ -125,7 +125,7 @@ Slot
 
 부모는 자식 컴포넌트 mail-subtitle을 사용하며 부모에서 선언한 slot들이 자식의 slot에 각각 name에 매핑되어 사용되어진다.
 ------------------------------------------------------------------------------------------------------------
-slot-scope를 이용한 데이터 넘기기
+v-slot 이용한 데이터 넘기기
 하위 컴포넌트 
 <template>
   <div>  
@@ -165,9 +165,129 @@ export default {
 </template>
 {{props.fromHeader}} 여기에는 Vue.js study~ 가 매칭된다.
 ------------------------------------------------------------------------------------------------------------
+slot-scop를 이용한 데이터 넘기기
+자식
+<template>
+  <div>
+    <header>
+      <slot name="child" :childData="childData" :close="close">
+        <button>버튼</button>
+      </slot>
+    </header>
+    <div>
+      <slot name="body">
+        <p>기본 바디</p>
+      </slot>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "BaseModal",
+  data() {
+    return {
+      childData: "child",
+      active: false
+    };
+  },
+  methods: {
+    close() {
+      this.active = false;
+    }
+  }
+};
+</script>
+    
+부모
+<template>
+  <div>
+    <BaseModal>
+      <!--자식에서 사용하던 name="child"로 감싸진 태그의 함수, 변수 모두 가져옵니다.-->
+      <template slot="child" slot-scope="slotProps">
+        <button @click="slotProps.close">닫기</button>
+        <!-- { childData: 'child' } -->
+        {{ slotProps }}
+      </template>
+      <p slot="body">바디입니다.</p>
+    </BaseModal>
+  </div>
+</template> 
 ------------------------------------------------------------------------------------------------------------
+재귀 컴포넌트
+템플릿에서 자기 자신을 호출하는 컴포넌트.
+반드시 name 옵션을 지정해야한다.
 
+Child
+<template>
+  <ul>
+      <li v-for="s in subs" v-bind:class="s.type">
+          {{name}}
+          <tree :subs="s.subs"></tree>
+      </li> 
+ </ul>
+</template>
+ 
+<script>
+export default {
+   name: 'tree',
+   props: ['subs']
+} 
+</script>
 
+Parent
+<template>
+  <div>
+     ... 
+     <tree :subs="orgcharts"></tree>
+  </div>
+</template>
+ 
+<script>
+import Tree from './Tree.vue'
+ 
+export default{
+  name: 'aobut',
+  components: { Tree },
+  data(){ 
+    return {
+        orgcharts: [ { name: '서울', type: 'division', subs: [ { name: '서울 동작구팀', type: 'team'}, ..] } ... ]
+    }
+}
+------------------------------------------------------------------------------------------------------------
+fragment
+vue 2.x는 template 아래에 루트 element가 반드시 하나 있어야한다. 
+따라서 원치않는 태그를 포함시켜야 하는 경우가 생긴다.
+이때 이 루트 element를 지운채로 컴포넌트를 사용해야 할 떄 사용한다.
 
+1. 패키지 설치
+ npm i -s vue-fragment  (-s 는 -save의 약자, dependencies에 해당 패키지 의존성이 추가된다.)
 
+2.플러그인 또는 컴포넌트에 등록한다. (플러그인 등록이 좋아보임.)
 
+2-1. 플러그인 등록
+import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin)
+
+// or
+
+import { Plugin } from 'vue-fragment'
+Vue.use(Plugin)
+
+2-2 컴포넌트 등록
+import { Fragment } from 'vue-fragment'
+
+export const MyComponent {
+  components: { Fragment },
+  ...,
+  data() { return { message: 'hello world }}
+}
+
+이후 사용하고자 하는 컴포넌트에 사용한다.
+<template>
+    <fragment>
+       <a>.....</a>
+    </fragment>
+</template>
+그럼 해당 컴포넌트를 사용하는 페이지에서는 a태그만 보이게 된다.
+------------------------------------------------------------------------------------------------------------
