@@ -1,0 +1,51 @@
+custom directive
+사용자 정의 디렉티브를 등록
+
+디렉티브 정의 객체는 여러가지 훅 함수를 제공할 수 있습니다.(모두 선택사항입니다.)
+
+bind: 디렉티브가 처음 엘리먼트에 바인딩 될 때 한번만 호출 됩니다. 이곳에서 일회성 설정을 할 수 있습니다.
+inserted: 바인딩 된 엘리먼트가 부모 노드에 삽입 되었을 때 호출 됩니다.
+update: 포함하는 컴포넌트가 업데이트 된 후 호출됩니다. 그러나 자식이 업데이트 되기 전일 가능성이 있습니다 
+componentUpdated: 포함하고 있는 컴포넌트와 그 자식들 이 업데이트 된 후에 호출됩니다.
+unbind: 디렉티브가 엘리먼트로부터 언바인딩된 경우에만 한번 호출됩니다.
+
+주로 bind,update,unbind 사용
+el: 디렉티브가 바인딩된 엘리먼트. DOM 조작용
+binding: 아래의 속성을 가진 객체입니다
+	name: 디렉티브 이름, v- 프리픽스가 없습니다.
+	value: 디렉티브에서 전달받은 값. 예를 들어 v-my-directive="1 + 1"인 경우 value는 2 입니다.
+	oldValue: 이전 값. update와 componentUpdated에서만 사용할 수 있습니다. 이를 통해 값이 변경되었는지 확인할 수 있습니다.
+	expression: 표현식 문자열. 예를 들어 v-my-directive="1 + 1"이면, 표현식은 "1 + 1" 입니다.
+	arg: 디렉티브의 전달인자, 있는 경우에만 존재합니다. 예를 들어 v-my-directive:foo 이면 "foo" 입니다.
+	modifiers: 포함된 수식어 객체, 있는 경우에만 존재합니다. 예를 들어 v-my-directive.foo.bar이면, 수식어 객체는 { foo: true, bar: true }입니다.
+	
+
+	value는 해당값을 의미하므로 숫자사용시, 또는 바인딩된 변수 사용시 쓴다.
+	expression은 문자열 그 자체이므로 문자열(표현식)을 그대로 가져와야할 떄 사용
+	arg는 동적으로 문자열 넘길때 좋을듯?
+vnode: Vue 컴파일러가 만든 버추얼 노드. 
+oldVnode: 이전의 버추얼 노드. update와 componentUpdated에서만 사용할 수 있습니다.
+
+예시)
+directive/index.js
+export default {
+    clickOutside :  {
+        bind : (el,binding,vnode) => {            
+            el.onClickEl = (e) => {
+                if( !( el == e.target || el.contains(e.target) ) ){
+                    vnode.context[binding.expression](e);
+                }
+            }
+            document.addEventListener('click',el.onClickEl);
+        },
+        unbind : (el) => {
+            document.removeEventListener('click',el.onClickEl);
+        }
+    }
+}
+
+main.js - 전역으로 등록함
+Vue.directive('click-outside',directive.clickOutside)
+
+실사용
+<div class="search-box" v-click-outside="blurInputSearch" >....</div>
