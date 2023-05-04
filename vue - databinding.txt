@@ -64,3 +64,41 @@ v-for
   {{ key }} : {{ value }}
 </div>
 ------------------------------------------------------------------------------------------------------------
+Dom에 접근하여 컨트롤 
+$ref
+자바스크립트의 querySelector, getElementsByClassName, getElementById 와 같은 역할
+
+예1)
+<template>
+  <div>
+    <input type="text" ref="target">
+  </div>
+</template>
+<script>
+  export default {
+    mounted(){
+      console.log('target', this.$refs.target);
+    }
+  }
+</script>
+
+
+예2) 부모 - 자식간 컴포넌트
+<!-- 부모 -->
+<template>
+  <Component ref="vue" />
+</template>
+<script>
+...
+  mounted() {   
+    console.log(this.$refs.vue.$refs.js);
+  },
+</script>
+
+<!-- 자식 -->
+<template>
+   <h1 ref="js">Javascript</h1>
+</template>
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
