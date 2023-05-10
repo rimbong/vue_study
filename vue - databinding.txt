@@ -1,5 +1,10 @@
 html 태그 <===> vue의 model(data) 접근시
 *양방향 바인딩) v-model = "data"  
+
+단, 한글 처리시 v-bind:value = "data" @input="updateValue" 와 같이 처리하여 사용할 것을 권고함.
+또 바인드 하는 값이 어떠한 함수를 거쳐 return 되는 값을 써야하는 경우에도 v-bind:value를 이용하여야 한다.
+간단하게 v-model = v-bind:value + v-on:input 라고 이해하면 된다.
+
 ------------------------------------------------------------------------------------------------------------
 부모 - 자식간 (component간 데이터를 동적으로 전달)
 v-bind:value = "data" or :value = "data"
@@ -41,7 +46,7 @@ searchValueTmp : {
 마지막으로 method에 비해 캐싱을 사용하므로 리소스를 줄일 수 있다.
 ------------------------------------------------------------------------------------------------------------
 class 및 style 동적 설정
-<div :class = "{red : isRed}" :style"{ color: red ,fontSize : size}" >
+<div :class = "{red : isRed}" :style="{ color: red ,fontSize : size}" >
 isRed의 true/false에 따라 동적으로 class를 설정해 줄 수 있다.
 red : 'red' , size: '30px' 와 같이 설정한다.
 
