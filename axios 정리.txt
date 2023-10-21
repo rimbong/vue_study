@@ -2,15 +2,15 @@ axios 정리
 
 post
 
-const formDataPost = (url, params) => {
+const postWithObject = (url, params,requireAuth) => {
     const config = {
         "headers" : {
             "Accept": 'application/json', 
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'require-auth' : !!requireAuth ? 'Y':'N'
         }    
     }
     const urlParams = new URLSearchParams();
-
     for (const key in params) {
         if (Object.hasOwnProperty.call(params, key)) {
             urlParams.append(key,params[key]);
@@ -18,9 +18,34 @@ const formDataPost = (url, params) => {
     }
     return  axios.post(url,urlParams,config);
 }
-
 axios의 post 사용시 객체를 그냥 보내면 서버에서 제대로 받질 못한다.
 따라서 URLSearchParams을 사용하여 객체의 prop값을 전부 담아 보내줘야 한다.
+------------------------------------------------------------------------------------------------
+const postForFileDownload = (url,params) => {
+    const config = {
+        "headers" : {             
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',            
+        },
+        responseType : "blob"    
+    }
+    const urlParams = new URLSearchParams();
+    for (const key in params) {
+        if (Object.hasOwnProperty.call(params, key)) {
+            urlParams.append(key,params[key]);
+        }
+    }
+    return  axios.post(url,urlParams,config).then((result) => {
+       const fileName = result.headers["content-disposition"].split("filename=")[1].replace(/"/g,"");
+       const url = window.URL.createObjectURL(new Blob([result.data]));
+       const link = document.createElement("a");
+       link.href = url;
+       link.setAttribute("download",fileName);
+       link.style.cssText = "display:none";
+       document.body.appendChild(link);
+       link.click();
+       link.remove();
+    });
+}
 ------------------------------------------------------------------------------------------------
 
 get
