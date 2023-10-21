@@ -11,8 +11,10 @@ mutations => commit으로 접근
 actions	  => dispathch로 접근
 ------------------------------------------------------------------------------------------------------------
 Vue 내부에 정의되는 객체
-...mapGetter	=> getters의 값들을 접근할 때 사용
-...mapState	    => state 값들을 접근할 때 사용
+...mapGetter	=> getters의 값들을 접근할 때 사용, computed에 선언하여 사용
+...mapState	    => state 값들을 접근할 때 사용,     computed에 선언하여 사용
+...mapMutations => mutation 값들을 접근할 때 사용,  method에 선언하여 사용
+...mapActions   => action 값들을 접근할 때 사용,  method에 선언하여 사용
 ------------------------------------------------------------------------------------------------------------
 URL -> 라우터 -> VUE -> VUEX ( action : 서비스 로직 수행,axios , mutation : state값 설정 )
 
@@ -80,7 +82,7 @@ mutations: {
 vue에서 state 값 접근
 computed: {
     type(){
-        return this.$store.state.board.type;
+        return this.$store.state.board.type; // this.$store.state.[vuex에 저장한 컴포넌트명].[state 변수명]
     },
 } => 또는 vuex에서 getters에 선언하고 vue에서 mapgetters를 이용하여 가져올수도 있다.
 ------------------------------------------------------------------------------------------------------------

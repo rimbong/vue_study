@@ -2,7 +2,7 @@ axios 정리
 
 post
 
-const postWithObject = (url, params,requireAuth) => {
+const postWithObject = (url, params, requireAuth) => {
     const config = {
         "headers" : {
             "Accept": 'application/json', 
@@ -21,6 +21,26 @@ const postWithObject = (url, params,requireAuth) => {
 axios의 post 사용시 객체를 그냥 보내면 서버에서 제대로 받질 못한다.
 따라서 URLSearchParams을 사용하여 객체의 prop값을 전부 담아 보내줘야 한다.
 ------------------------------------------------------------------------------------------------
+multipart
+
+const postWithMultipart = (url, params, requireAuth) => {
+    const config = {
+        "headers" : {
+            "Accept": 'application/json', 
+            'Content-Type': 'multipart/form-data; charset=UTF-8',
+            'require-auth' : !!requireAuth ? 'Y':'N',
+        }    
+    }
+    const formData = new FormData();
+    for (const key in params) { 
+        if (Object.hasOwnProperty.call(params, key)) {
+            formData.append(key,params[key]);
+        }
+    }
+    return  axios.post(url,formData,config);
+}
+------------------------------------------------------------------------------------------------
+file download
 const postForFileDownload = (url,params) => {
     const config = {
         "headers" : {             
@@ -47,6 +67,49 @@ const postForFileDownload = (url,params) => {
     });
 }
 ------------------------------------------------------------------------------------------------
-
-get
+서버 요청시 후 작업
+axios.interceptors.request.use(
+    (config) => {        
+        config.headers.accessToken = VueCookies.get("accessToken");
+        config.headers.refreshToken = VueCookies.get("refreshToken");
+        
+        if(!config.headers.accessToken && config.url !== "/user/checkAndGetTokens.his"){
+            axiosTmpData = config.data;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+서버에 대한 응답을 받을시 선 작업
+axios.interceptors.response.use(
+    (response) => {
+        return response
+    },
+    async (error) => {                
+        const errorApi = error.config;        
+        if (error.response.status === 401 && retry === undefined) { 
+            const config = {
+                "headers" : {
+                    "Accept": 'application/json', 
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'require-auth' : 'Y'
+                }    
+            }           
+            retry = true;
+            await userService.checkAndGetTokens().then((result) => {
+                errorApi.data = axiosTmpData;                   
+            })
+            return await axios.post(errorApi.url,errorApi.data,config).then((result) => {
+                axiosTmpData = null;
+                return result
+            })
+        }
+        return Promise.reject(error);
+    }
+)
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
