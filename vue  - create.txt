@@ -15,6 +15,13 @@
     pick additional linit features => Lint on save
     Where do you prefer placing... => In package.json
 ---------------------------------------------------------------------------
+빌드
+vue 프로젝트로 이동 후
+npm run build
+
+서비실행
+npm run serve
+---------------------------------------------------------------------------
 부트 스트랩 설치 및 제거
     npm install vue bootstrap bootstrap-vue
     npm uninstall vue bootstrap bootstrap-vue
@@ -39,3 +46,4 @@ vue.config.js
 vue는 index.html을 한 페이지로 잡고 작동 따라서 개발시에는 index.html(localhost:8080)을 이용해서 개발을 한다.
 진행 순서는
 URL -> 라우터 -> VUE -> VUEX ( action : 서비스 로직 수행,axios , mutation : state값 설정 )
+---------------------------------------------------------------------------
