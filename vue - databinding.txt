@@ -115,7 +115,12 @@ Vue의 반응성 규칙
 2. 만약 객체에 새 속성을 추가할 경우 다음중 하나를 수행해야한다.
 
 1) Vue.set 또는 this.$set을 사용하여 Vue가 감지할 수 있게 만들어준다. 
- - Vue.set(object, key, value) , this.$set(object, key, value)
+
+배열 : Vue.set(arr, index, value) // == this.$set(arr, index, value)
+객체 : Vue.set(obj, key, value) // ==this.$set(obj,key,value)
+       Vue.delete(obj, key) // == this.$delete(obj, key)
+
+
 2) this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 }) 같은 형태로 Object.assign을 사용하여 재정의 해줘야 한다.
 예)
 잘못된 정의

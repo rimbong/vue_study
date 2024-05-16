@@ -88,5 +88,30 @@ computed: {
 ------------------------------------------------------------------------------------------------------------
 Vuex 값의 변화 감지
 vuex 에서 객체({})는 변화를 해도 감지를 못함,물론 값의 변화가 적용은 된다.
-따라서 state에 원시값(숫자,문자열 등)과 같은 값을 하나 선언하여 사용해야한다.
+따라서 state에 원시값(숫자,문자열 등)과 같은 값을 하나 선언하여 사용해야한다. 
+예)
+store.js
+export default {  
+     namespaced: true,
+     state: {
+        searchParams : {},  
+        ...
+
+search.vue
+ computed: {
+        ...mapGetters({
+            searchValue : 'BoardHeader/getSearchValue'           
+        }),
+        searchValueTmp : {
+            get() {
+                return this.searchValue || ""
+            },
+            set(val) {
+                return this.$store.commit("BoardHeader/setSearchValue", val);
+            }
+        },
+...
+
+또 state 변경시 절대로 직접 접근하여 변경하지 말고 반드시 mutations 함수를 이용하여 변경한다.
+
 ------------------------------------------------------------------------------------------------------------
