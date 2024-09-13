@@ -46,6 +46,18 @@ vue파일에서 라우터 사용방법
 1. <~~~  @click="$router.push("/~~~~")" > 
 2. <router-link :to = "{name : ~~~}"></>
 . this.$router.push({  });
+
+const username = 'eduardo'
+// 우리는 URL을 수동으로 만들수 있지만 인코딩을 직접 처리해야 합니다.
+router.push(`/user/${username}`) // -> /user/eduardo
+// 위와 동일함.
+router.push({ path: `/user/${username}` }) // -> /user/eduardo
+// 가능하다면 `name`과 `params`를 사용하여 자동 URL 인코딩의 이점을 누리세요.
+router.push({ name: 'user', params: { username } }) // -> /user/eduardo
+// `params`는 `path`와 함께 사용할 수 없습니다.
+router.push({ path: '/user', params: { username } }) // -> /user
+
+
 ------------------------------------------------------------------------------------------------------------
 라우터 설정시 
 mode
