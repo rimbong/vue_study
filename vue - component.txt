@@ -169,6 +169,9 @@ export default {
 {{props.fromHeader}} 여기에는 Vue.js study~ 가 매칭된다.
 ------------------------------------------------------------------------------------------------------------
 slot-scop를 이용한 데이터 넘기기
+slot-scope는 부모 컴포넌트에서 자식 컴포넌트의 데이터를 가져와서 사용할 수 있게 해주는 Vue의 기능입니다. 이 기능은 스코프 슬롯을 이용해 부모 컴포넌트에서 자식의 데이터를 접근하고 사용할 수 있게 합니다.
+
+
 자식
 <template>
   <div>
@@ -201,7 +204,12 @@ export default {
   }
 };
 </script>
-    
+자식 컴포넌트 (BaseModal)
+자식 컴포넌트에서는 슬롯에 데이터를 넘겨주는 역할을 합니다. childData와 close라는 메소드를 슬롯에 전달하고 있습니다.
+
+위 코드에서 :childData="childData"와 :close="close"는 자식 컴포넌트에서 부모에게 넘길 데이터입니다. 이 슬롯을 통해 부모 컴포넌트에서 childData와 close를 사용할 수 있게 됩니다.
+
+
 부모
 <template>
   <div>
@@ -216,6 +224,15 @@ export default {
     </BaseModal>
   </div>
 </template> 
+
+부모 컴포넌트는 자식 컴포넌트에서 제공하는 데이터를 slot-scope를 이용해 받아옵니다. slotProps라는 이름으로 데이터가 전달되며, 여기에는 자식 컴포넌트에서 전달한 childData와 close 메소드가 들어 있습니다.
+
+여기서 slot-scope="slotProps"는 자식 컴포넌트에서 전달한 데이터를 slotProps라는 객체로 받아오는 역할을 합니다. 즉, slotProps는 childData와 close를 포함하고 있는 객체입니다.
+
+slotProps.childData: 자식에서 전달한 데이터 "child"
+slotProps.close: 자식에서 전달한 메소드 close()
+
+
 ------------------------------------------------------------------------------------------------------------
 재귀 컴포넌트
 템플릿에서 자기 자신을 호출하는 컴포넌트.

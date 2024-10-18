@@ -140,6 +140,9 @@ watch : {
     // 라우터 URL 변경시 해당 메소드 실행
     '$route': 'getBoardList'
 } => 뷰에서 라우터 객체 접근 등은 $route 사용 !
+
+
+
 getBoardList(){
     this.$store.dispatch('board/list',this.$route);
 }, => vuex action 호출 ,$route 객체를 넘긴다.
