@@ -104,3 +104,23 @@ Vue.use(포함할JS)
 use 선언시 포함할JS 내부의 install을 호출하게 되는데 여기에다 초기화할 전역변수들을 선언하는게 좋다.
 
 ------------------------------------------------------------------------------------------------------------
+require
+이미지 경로 등 경로를 포함하는 경우 require 써야 웹팩이 제대로 인식하여 동작하게 된다.
+ data() {
+        return {
+            icons : {
+                check : {
+                    img : require('@/assets/img/common/ic_check.png')
+                },
+                fail : {
+                    img : require('@/assets/img/common/ic_fail.png')
+                },
+                ok : {
+                    img : require('@/assets/img/common/ic_ok.png')
+                },
+                alarm : {
+                    img : require('@/assets/img/common/ic_alarm.png')
+                },
+            }
+        }
+    },
